@@ -6,7 +6,7 @@ import scienceplots
 import shutil
 
 # O Pandas já usa a vírgula como separador padrão e lê os cabeçalhos sozinhos
-df = pd.read_csv("data_gravitational_confident.csv")
+df = pd.read_csv("gw_filtered_events.csv")
 
 # O restante do código de análise permanece exatamente o mesmo!
 max_final_mass = df['final_mass_source'].max()
@@ -23,16 +23,19 @@ print(f"Evento com menor massa final: {df.loc[index_min, 'shortName']} = {min_fi
 
 plt.style.use(['science'])
 
-final_mass_source = df['final_mass_source']
+shortName = df['shortName']
+gps = df['GPS']
 mass_1_source = df['mass_1_source']
 mass_2_source = df['mass_2_source']
-chi_eff = df['chi_eff']
+total_mass_source = df['total_mass_source']
+final_mass_source = df['final_mass_source']
+snr = df['snr']
 luminosity_distance = df['luminosity_distance']
 chi_eff = df['chi_eff']
+chirp_mass_source = df['chirp_mass_source']
+redshift = df['redshift']
 
 
-'''
-#Disperção - Massa1 e Massa2
 plt.figure(figsize=(8, 6))
 plt.scatter(mass_1_source, mass_2_source, marker='o', s=50)
 plt.axline((0, 0), slope=1, color='red', linewidth=2, linestyle='--', alpha=0.7, label="y = x")
@@ -41,9 +44,8 @@ plt.ylabel(r"Mass $2$ ($M_\odot$)", fontsize=25)  # Alterado de xlabel para ylab
 plt.tick_params(axis='both', labelsize=15)
 plt.savefig("mass1_x_mass2.png", dpi=300)
 plt.show()
-shutil.move('mass1_x_mass2.png', 'img_stat/mass1_x_mass2.png')
+shutil.move('mass1_x_mass2.png', 'img/mass1_x_mass2.png')
 
-#Distancia vs Massa final
 plt.figure(figsize=(8, 6))
 plt.scatter(luminosity_distance, final_mass_source, marker='o', s=50)
 plt.axline((0, 0), slope=0.01, color='red', linewidth=2, linestyle='--', alpha=0.7, label="y = x")
@@ -53,12 +55,12 @@ plt.ylabel(r"Luminosity Distance (Mpc)", fontsize=25)  # Alterado de xlabel para
 plt.tick_params(axis='both', labelsize=15)
 plt.savefig("distance_mass.png", dpi=300)
 plt.show()
-shutil.move('distance_mass.png', 'img_stat/distance_mass.png')
+shutil.move('distance_mass.png', 'img/distance_mass.png')
+
+
 
 
 q_m1_m2 = mass_2_source/mass_1_source
-
-
 
 # Configurando o tamanho da imagem
 plt.figure(figsize=(8, 6))
@@ -82,13 +84,9 @@ plt.title(r"Joint Density Distribution: $\chi_{eff}$ vs $q$", fontsize=30)
 plt.grid(True, linestyle="--", alpha=0.5)
 plt.savefig("join_q_chi_eff.png", dpi=300)
 plt.show()
-shutil.move('join_q_chi_eff.png', 'img_stat/join_q_chi_eff.png')
+shutil.move('join_q_chi_eff.png', 'img/join_q_chi_eff.png')
 
 
-
-
-
-#Histogramas
 
 #Final Mass
 mean_sig = np.mean(final_mass_source)
@@ -101,7 +99,8 @@ plt.title(rf'$\mu$ = {round(mean_sig,2)} $ M_\odot $,    $\sigma$ = {round(stdg_
 plt.tick_params(axis = 'both', labelsize=20)
 plt.savefig("FinalMass.png", dpi=300)
 plt.show()
-shutil.move('FinalMass.png', 'img_stat/FinalMass.png')
+shutil.move('FinalMass.png', 'img/FinalMass.png')
+
 
 #Mass1 and Mass2
 mean1 = np.mean(mass_1_source)
@@ -120,7 +119,8 @@ plt.tick_params(axis='both', labelsize=15)
 plt.tight_layout() # Isso ajusta as margens automaticamente para nada ficar cortado
 plt.savefig("Mass1Mass2.png", dpi=300) # dpi=300 deixa a imagem em alta resolução
 plt.show()
-shutil.move('Mass1Mass2.png', 'img_stat/Mass1Mass2.png')
+shutil.move('Mass1Mass2.png', 'img/Mass1Mass2.png')
+
 
 mean_spin = np.mean(chi_eff)
 std1_spin = np.std(chi_eff)
@@ -130,15 +130,5 @@ plt.xlabel(r"Spin", fontsize=20)
 plt.ylabel("Frequency", fontsize=20)
 plt.title(rf'$\mu$ = {round(mean_spin,2)} $ M_\odot $,    $\sigma$ = {round(std1_spin,2)} ', fontsize=30)
 plt.savefig('Spin.png', dpi=300)
-shutil.move('Spin.png', 'img_stat/Spin.png')
+shutil.move('Spin.png', 'img/Spin.png')
 plt.show()
-
-'''
-
-
-
-
-
-index_especifico = df[df['shortName'] == 'GW150914-v3'].index[0]
-print(index_especifico)
-print(chi_eff[index_especifico])

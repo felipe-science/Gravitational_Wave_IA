@@ -1,6 +1,7 @@
 import re
 import time
 import csv
+import pandas as pd
 from gwosc.datasets import find_datasets
 from gwosc.api import fetch_event_json
 from tqdm import tqdm
@@ -119,3 +120,16 @@ print("==========================================================")
 end_time = time.perf_counter()
 elapsed_time = (end_time - start_time)/60.0
 print(f"\nExecution time: {elapsed_time:.6f} minutes")
+
+
+df = pd.read_csv("gw_events.csv")
+df_filtered = df.dropna()
+print("\n Filtered DataFrame")
+print(df_filtered.head())
+
+Ntotal = len(df)
+Nfilte = len(df_filtered)
+print(f"Number of events: {Ntotal}")
+print(f"Number of filtered events: {Nfilte}")
+
+df_filtered.to_csv("gw_filtered_events.csv", index=False)
