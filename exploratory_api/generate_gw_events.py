@@ -6,6 +6,8 @@ from gwosc.api import fetch_event_json
 from tqdm import tqdm
 
 
+start_time = time.perf_counter()
+
 # 1. We define only the most reliable and updated catalogs
 target_catalogs = [
     'GWTC-1-confident',
@@ -112,3 +114,8 @@ print(f'Chirp mass: {chirp_mass_source} massas solares')
 print(f'redshift: {redshift}')
 print(f'Final mass source: {final_mass_source}')
 print("==========================================================")
+
+
+end_time = time.perf_counter()
+elapsed_time = (end_time - start_time)/60.0
+print(f"\nExecution time: {elapsed_time:.6f} minutes")
