@@ -11,6 +11,8 @@ from tqdm import tqdm
 df = pd.read_csv("gw_filtered_events.csv")
 shortName = df['shortName']
 
+print(f"Baixando {len(shortName)} sinais")
+
 print("Currently downloading...")
 N = len(shortName)
 for i in tqdm(range(N)):
