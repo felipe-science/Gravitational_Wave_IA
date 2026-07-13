@@ -12,6 +12,7 @@ Nparame = len(data_parameters)
 
 
 empty = 0
+list_shortName_empty = []
 for i in range(Nfolder):
     # 1. Cria a string do caminho
     path_str = f'{path_data}/{folders[i]}'
@@ -24,9 +25,12 @@ for i in range(Nfolder):
 
     if is_empty:
         empty+=1
+        list_shortName_empty.append(folders[i])
 
 
 print(f'N parame = {Nparame}\n')
 print(f'N folder = {len(folders)}')
 print(f'Empty folder = {empty}')
-print(f'Full folder = {Nfolder-empty}')
+print(f'Full folder = {Nfolder-empty}\n')
+
+print(list_shortName_empty)
