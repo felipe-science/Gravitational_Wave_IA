@@ -11,6 +11,8 @@ Nfolder = len(folders)
 Nparame = len(data_parameters)
 
 
+f = open('empty_folder.dat','w')
+
 empty = 0
 list_shortName_empty = []
 for i in range(Nfolder):
@@ -27,10 +29,13 @@ for i in range(Nfolder):
         empty+=1
         list_shortName_empty.append(folders[i])
 
+        f.write(f'{folders[i]}\n')
+
 
 print(f'N parame = {Nparame}\n')
 print(f'N folder = {len(folders)}')
 print(f'Empty folder = {empty}')
 print(f'Full folder = {Nfolder-empty}\n')
 
-print(list_shortName_empty)
+
+f.close()
