@@ -1,4 +1,5 @@
 import requests
+import numpy as np
 import pandas as pd
 from gwosc.locate import get_event_urls
 from pathlib import Path
@@ -9,9 +10,17 @@ short_names = df['shortName']
 
 print(f"Baixando {len(short_names)} sinais...")
 
+
+
+Nmax = len(short_names)
+Ni = 0
+Nf = Nmax
+
 # Iterando diretamente sobre os nomes
-for name in tqdm(short_names, desc="Progresso Geral dos Eventos"):
+for i in tqdm(range(Ni,Nf,1), desc="Progresso Geral dos Eventos"):
     
+
+    name = short_names[i]
     # Criação do diretório com Pathlib
     folder = Path(f'../data/{name}')
     folder.mkdir(parents=True, exist_ok=True)
@@ -56,3 +65,6 @@ for name in tqdm(short_names, desc="Progresso Geral dos Eventos"):
                         
         except requests.exceptions.RequestException as e:
             print(f"\nErro ao baixar {url}: {e}")
+
+
+    print(f'folder {i} concluído\n')
