@@ -7,7 +7,6 @@ from gwpy.signal import filter_design
 from gwpy.plot import Plot
 
 data_parameters = pd.read_csv('gw_filtered_events.csv')
-
 shortName = data_parameters['shortName']
 
 
