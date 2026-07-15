@@ -13,7 +13,7 @@ print(f"Baixando {len(short_names)} sinais...")
 
 
 Nmax = len(short_names)
-Ni = 0
+Ni = 145
 Nf = Nmax
 
 # Iterando diretamente sobre os nomes
